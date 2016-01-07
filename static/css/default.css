@@ -1,0 +1,42 @@
+h4 {
+  font-size: 20px;
+}
+
+.single-page-content-block-centered {
+  display: inline-block;
+  position: relative;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  float: left;
+  width: 800px;
+}
+
+.single-page-content-block {
+  display: inline-block;
+  position: relative;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%);
+  float: left;
+  width: 800px;
+}
+
+.page {
+  width:100%;
+  height:100%;
+}
+
+/* CSS REQUIRED */
+.state-icon {
+    left: -5px;
+}
+.list-group-item-primary {
+    color: rgb(255, 255, 255);
+    background-color: rgb(66, 139, 202);
+}
+
+/* DEMO ONLY - REMOVES UNWANTED MARGIN */
+.well .list-group {
+    margin-bottom: 0px;
+}

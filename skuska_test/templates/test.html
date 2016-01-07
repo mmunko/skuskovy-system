@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block custom_css_links %}
+<link rel="stylesheet" type="text/css" href="{% static "css/default.css" %}">
+<script src="{% static "js/default.js" %}"></script>
+{% endblock %}
+
+
+{% block content %}
+<div id="page" class="page">
+  <div class="single-page-content-block">
+    <form id="login-form" method="post" role="form" accept-charset="UTF-8" action="/vysledok/">
+      {% csrf_token %}
+
+      <fieldset>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
+            <img src="{% static "pictures/user146.svg" %}" style="height:15px">
+          </span>
+          <input class="form-control" type="text" name="student" value="{{skuska.student}}" style="background-color: #ffffff;" readonly></input>
+        </div>
+        <div class="form-group input-group">
+          <span class="input-group-addon">
+            <img src="{% static "pictures/check-mark2.svg" %}" style="height:15px">
+          </span>
+          <input class="form-control" type="text" name="test_nazov" value="{{skuska.test.1}}" style="background-color: #ffffff;" readonly></input>
+        </div>
+        <div class="form-group input-group" style="display:none">
+          <input class="form-control" type="text" name="test_subor" value="{{skuska.test.0}}" style="background-color: #ffffff;" readonly></input>
+        </div>
+
+        {% for o in skuska.otazky %}
+          <div class="form-group input-group" style="width:100%;">
+            <hr>
+            <h3>{{o.otazka}}</h3>
+            {% if "obrazok" in o %}
+              <img src="{% static o.obrazok %}" style="max-height:500px;">
+            {% endif %}
+                {% for odpoved in o.odpovede %}
+                  <div class="checkbox">
+                    <label><input type="checkbox" name="{{o.id}}" value="{{odpoved}}">{{odpoved.0}}</label>
+                  </div>
+                {% endfor %}
+          </div>
+        {% endfor %}
+      </fieldset>
+
+      <hr>
+      <div style="float:right;margin-top:25px; height:100px">
+        <button type="submit" class="save btn btn-danger">Odovzdať test</button>
+        <button type="reset" class="save btn btn-default">Reset</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+{% endblock %}

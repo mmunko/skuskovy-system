@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block custom_css_links %}
+<link rel="stylesheet" type="text/css" href="{% static "css/default.css" %}">
+{% endblock %}
+
+
+{% block content %}
+<div id="page" class="page">
+  <div class="single-page-content-block-centered" style="text-align: center; top:40%;">
+    <img src="{% static "pictures/fail.svg" %}" style="width:350px">
+    <font color="#FF5555">
+      <h1>Bohužiaľ, test sa Vám nepodarilo zodpovedať na minimálny počet bodov.</h1>
+      <h1>Vaša známka je <strong>FX</strong>, s počtom bodov <strong>{{body}}</strong></h1>
+    </font>
+  </div>
+</div>
+{% endblock %}

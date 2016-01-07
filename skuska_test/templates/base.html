@@ -1,0 +1,14 @@
+{% load staticfiles %}
+<!DOCTYPE>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  {% block custom_css_links %}{% endblock %}
+</head>
+<body>
+  {% block header%}{% endblock %}
+  {% block content %}{% endblock %}
+</body>
+</html>
