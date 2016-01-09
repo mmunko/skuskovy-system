@@ -1,0 +1,47 @@
+{
+  "nazov" : "Testovaci test s vysledkom vyhovel",
+  "znamky" :
+  {
+    "vyhovel":2
+  },
+  "sekcie" :
+  [
+    {
+      "pocet_otazok" : 2,
+      "otazky" :
+      [
+        {
+          "id" : 1,
+          "otazka" : "Otazka 1 a",
+          "obrazok" : "foo/obrazok.svg",
+          "odpovede" :
+          [
+            ["Odpoved 1" , -0.5],
+            ["Odpoved 2" , 1],
+            ["Odpoved 3" , -0.5],
+            ["Odpoved 4" , 1]
+          ]
+        },
+        {
+          "id" : 2,
+          "otazka" : "Otazka 1 b",
+          "odpovede" :
+          [
+            ["Odpoved 1" , -0.5],
+            ["Odpoved 2" , -0.5],
+            ["Odpoved 3" , 1]
+          ]
+        },
+        {
+          "id" : 3,
+          "otazka" : "Otazka 1 c",
+          "odpovede" :
+          [
+            ["Odpoved 1" , -0.5],
+            ["Odpoved 2" , 1]
+          ]
+        }
+      ]
+    }
+  ]
+}
