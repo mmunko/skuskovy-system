@@ -67,14 +67,20 @@ def vysledok(request):
 
     result.odpovede = vysledok
 
-    for znamka in ['A','B','C','D','E']:
-        if result.body >= test["znamky"][znamka]:
-            result.znamka = znamka
-            break
+    if "vyhovel" in test["znamky"]:
+        if result.body >= test["znamky"]["vyhovel"]:
+            result.znamka = "vyhovel(a)"
+        else:
+            result.znamka = "nevyhovel(a)"
+    else:
+        for znamka in ['A','B','C','D','E']:
+            if result.body >= test["znamky"][znamka]:
+                result.znamka = znamka
+                break
 
     result.save()
 
-    if result.znamka != 'Fx':
+    if result.znamka != 'Fx' and result.znamka != "nevyhovel(a)":
         return render(request,'uspech.html',{'znamka':result.znamka,'body':result.body})
     else:
-        return render(request,'neuspech.html',{'body':result.body})
+        return render(request,'neuspech.html',{'znamka':result.znamka,'body':result.body})

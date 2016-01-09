@@ -12,7 +12,7 @@ class Result(models.Model):
     test_subor = models.TextField()
     odpovede = JSONField()
     body = models.SmallIntegerField()
-    znamka = models.CharField(max_length=2,default='Fx')
+    znamka = models.CharField(max_length=20,default='Fx')
     casova_peciatka = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
