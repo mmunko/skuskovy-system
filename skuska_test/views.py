@@ -53,17 +53,32 @@ def vysledok(request):
         if item != 'csrfmiddlewaretoken' and item != 'student' and item != 'test_nazov' and item != 'test_subor':
             otazky.append(item)
 
+    with open(result.test_subor) as f:
+        test = json.load(f)
+
+    print(otazky)
     vysledok = {}
     for otazka in otazky:
         vysledok[otazka] = []
         odpovede = request.POST.getlist(otazka)
+
+        spravne = 0
         for odpoved in odpovede:
             odpoved = ast.literal_eval(odpoved)
             vysledok[otazka].append(odpoved)
-            result.body += odpoved[1]
+            spravne += odpoved[1]
 
-    with open(result.test_subor) as f:
-        test = json.load(f)
+        poc_spravnych = 0
+        for s in test["sekcie"]:
+            for o in s["otazky"]:
+                if o["id"] == int(otazka):
+                    for odp in o["odpovede"]:
+                        poc_spravnych += odp[1]
+
+        if spravne == poc_spravnych and len(vysledok[otazka]) == poc_spravnych:
+            result.body += o["body"][0]
+        else:
+            result.body += o["body"][1]
 
     result.odpovede = vysledok
 
