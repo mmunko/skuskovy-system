@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from glob import glob
 from django.template.context_processors import csrf
 from .models import Result
+from skuska_admin.models import Test
 
 import os
 import json
@@ -11,16 +11,18 @@ import ast
 
 # Create your views here.
 def metadata(request):
-    c = {}
-    c.update(csrf(request))
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    test_files = glob(os.path.join(BASE_DIR,'static','testy','*.json'))
-    testy = []
-    for test_file in test_files:
-        with open(test_file) as t:
-            test = json.load(t)
-        testy.append([test_file,test["nazov"]])
-    return render(request,'metadata.html',{'testy':testy})
+    aktivne_testy = Test.objects.filter(active=True)
+    if len(aktivne_testy) != 0:
+        c = {}
+        c.update(csrf(request))
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        testy = []
+        for test in aktivne_testy:
+            testy.append([os.path.join(BASE_DIR,'static',test.test_subor),test.__str__()])
+        return render(request,'metadata.html',{'testy':testy})
+
+    else:
+        return render(request,'notests.html')
 
 def test(request):
     c = {}

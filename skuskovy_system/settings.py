@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'skuska_test',
-    #'skuska_kontrola',
+    'skuska_admin',
 ]
 
 MIDDLEWARE_CLASSES = [
