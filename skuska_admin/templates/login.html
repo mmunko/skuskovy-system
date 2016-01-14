@@ -1,0 +1,40 @@
+{% extends "manmeas/base.html" %}
+{% load staticfiles %}
+
+{% block custom_css_links %}
+<link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}">
+{% endblock %}
+
+{% block content %}
+<div id="page" class="page">
+  <div id="login_div" class="login_div single-page-content-block">
+    <h4 style="border-bottom: 2px solid #C5C5C5;">
+      User Login
+    </h4>
+    <form id="login-form" method="post" role="form" accept-charset="UTF-8" action="/accounts/auth/">
+      {% csrf_token %}
+      <fieldset>
+
+        <div class="form-group input-group">
+          <span class="input-group-addon">
+            <img src="{% static "pictures/user146.svg" %}" style="height:15px">
+          </span>
+          <input class="form-control" type="text" name="username" placeholder="User"></input>
+        </div>
+
+        <div class="form-group input-group">
+          <span class="input-group-addon">
+            <img src="{% static "pictures/padlock86.svg" %}" style="height:15px">
+          </span>
+          <input class="form-control" type="password" name="password" placeholder="Password"></input>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" type="submit">Log In</button>
+        </div>
+
+      </fieldset>
+    </form>
+  </div>
+</div>
+{% endblock %}
