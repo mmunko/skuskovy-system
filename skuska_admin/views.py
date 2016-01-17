@@ -52,8 +52,6 @@ def view_results(request):
     cas_do = request.POST.get('do')
     try:
         vysledky = Result.objects.filter(casova_peciatka__range=(cas_od,cas_do),test=test_id)
-        print(cas_od,cas_do)
-        print(vysledky)
         if len(vysledky) == 0:
             return render(request,'error.html',{'text':'Zadaným kritériám nevyhovujú žiadne výsledky','navrat':'/find_results'})
         else:
