@@ -36,6 +36,7 @@
     <table style="width:100%" class="table-striped">
       <thead>
       <tr>
+        <th>Cas odovzdania testu</th>
         <th>Meno študenta</th>
         <th>Počet bodov</th>
         <th>Výsledné hodnotenie</th>
@@ -43,6 +44,7 @@
     </thead>
       {% for vysledok in vysledky %}
       <tr>
+        <td >{{vysledok.casova_peciatka}}</td>
         <td >{{vysledok.student}}</td>
         <td >{{vysledok.body}}</td>
         <td >{{vysledok.znamka}}</td>
