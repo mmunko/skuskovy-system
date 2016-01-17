@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block custom_css_links %}
+<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+<script src="{% static "js/home.js" %}"></script>
+{% endblock %}
+
+{% block header%}
+<div id="header" >
+  <div id="header-content" class="horizontally-centered content-page">
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/logout'">
+      <strong>Log out</strong>
+    </button>
+
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/manage'">
+      <strong>Správa testov</strong>
+    </button>
+
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/find_results'">
+      <strong>Prehľad výsledkov</strong>
+    </button>
+
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/find_test'">
+      <strong>Zobraziť test</strong>
+    </button>
+  </div>
+</div>
+{% endblock %}
+
+{% block content%}
+<div id="page">
+  <div id="page-content" class="horizontally-centered content-page">
+    <br>
+    <br>
+    <table style="width:100%" class="table-striped">
+      <thead>
+      <tr>
+        <th>Meno študenta</th>
+        <th>Počet bodov</th>
+        <th>Výsledné hodnotenie</th>
+      </tr>
+    </thead>
+      {% for vysledok in vysledky %}
+      <tr>
+        <td >{{vysledok.student}}</td>
+        <td >{{vysledok.body}}</td>
+        <td >{{vysledok.znamka}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+{% endblock %}

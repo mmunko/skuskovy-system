@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block custom_css_links %}
+<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+<script src="{% static "js/home.js" %}"></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/css/select2.min.css" rel="stylesheet" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.1/js/select2.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".js-example-placeholder-single").select2({
+      placeholder: "Vyberte výsledok testu"
+    });
+  });
+</script>
+{% endblock %}
+
+{% block header%}
+<div id="header" >
+  <div id="header-content" class="horizontally-centered content-page">
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/logout'">
+      <strong>Log out</strong>
+    </button>
+
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/manage'">
+      <strong>Správa testov</strong>
+    </button>
+
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/find_results'">
+      <strong>Prehľad výsledkov</strong>
+    </button>
+
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/find_test'">
+      <strong>Zobraziť test</strong>
+    </button>
+  </div>
+</div>
+{% endblock %}
+
+{% block content%}
+<div id="page">
+  <div id="page-content" class="horizontally-centered content-page">
+    <br>
+    <br>
+    <form id="form" method="post" role="form" accept-charset="UTF-8" action="/view_test/">
+      {% csrf_token %}
+      <div style="width:100%">
+        <select class="js-example-placeholder-single" style="width:100%;" name="test">
+          {% for test in testy %}
+            <option value="{{test.id}}">{{test}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <hr>
+      <div style="float:right; height:100px">
+        <button type="submit" class="save btn btn-danger">Vyhľadať</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

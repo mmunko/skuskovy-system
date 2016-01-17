@@ -1,4 +1,4 @@
-{% extends "manmeas/base.html" %}
+{% extends "base.html" %}
 {% load staticfiles %}
 
 {% block custom_css_links %}
@@ -11,7 +11,7 @@
     <h4 style="border-bottom: 2px solid #C5C5C5;">
       User Login
     </h4>
-    <form id="login-form" method="post" role="form" accept-charset="UTF-8" action="/accounts/auth/">
+    <form id="login-form" method="post" role="form" accept-charset="UTF-8" action="/auth/">
       {% csrf_token %}
       <fieldset>
 

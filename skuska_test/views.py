@@ -15,10 +15,9 @@ def metadata(request):
     if len(aktivne_testy) != 0:
         c = {}
         c.update(csrf(request))
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         testy = []
         for test in aktivne_testy:
-            testy.append([os.path.join(BASE_DIR,'static',test.test_subor),test.__str__()])
+            testy.append([test.id,test.__str__()])
         return render(request,'metadata.html',{'testy':testy})
 
     else:
@@ -28,15 +27,21 @@ def test(request):
     c = {}
     c.update(csrf(request))
     student = request.POST.get('student')
-    with open(request.POST.get('test')) as f:
+    test_id = int(request.POST.get('test'))
+    test_file = Test.objects.filter(id=test_id).values('test_subor')
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    test_file = os.path.join(BASE_DIR,'static','testy',test_file[0]["test_subor"])
+    with open(test_file) as f:
         test = json.load(f)
     skuska = {}
     skuska["student"] = student
-    skuska["test"] = [request.POST.get('test'),test["nazov"]]
+    skuska["test"] = [test_id,test["nazov"]]
     skuska["otazky"] = []
+    skuska["otazky_id"] = []
     random.shuffle(test["sekcie"])
     for sekcia in test["sekcie"]:
         for otazka in random.sample(sekcia["otazky"],sekcia["pocet_otazok"]):
+            skuska["otazky_id"].append(otazka["id"])
             random.shuffle(otazka["odpovede"])
             if "obrazok" in otazka:
                 otazka["obrazok"] = "{}{}".format("testy/obrazky/",otazka["obrazok"])
@@ -46,19 +51,21 @@ def test(request):
 def vysledok(request):
     result = Result()
     result.student = request.POST.get('student')
-    result.test_subor = request.POST.get('test_subor')
-    result.test_nazov = request.POST.get('test_nazov')
+    result.test = Test.objects.get(id=request.POST.get('test_id'))
+    result.otazky = request.POST.get('otazky_id')
     result.body = 0
 
     otazky = []
     for item in request.POST:
-        if item != 'csrfmiddlewaretoken' and item != 'student' and item != 'test_nazov' and item != 'test_subor':
+        if item != 'csrfmiddlewaretoken' and item != 'student' and item != 'test_id' and item != 'otazky_id' and item != 'test_nazov':
             otazky.append(item)
 
-    with open(result.test_subor) as f:
+    # test_file = Test.objects.get(id=result.test_id).values('test_subor')
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    test_file = os.path.join(BASE_DIR,'static','testy',result.test.test_subor)
+    with open(test_file) as f:
         test = json.load(f)
 
-    print(otazky)
     vysledok = {}
     for otazka in otazky:
         vysledok[otazka] = []

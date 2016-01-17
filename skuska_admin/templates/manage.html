@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block custom_css_links %}
+<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+<script src="{% static "js/home.js" %}"></script>
+<script type='text/javascript' src='http://code.jquery.com/jquery-2.0.2.js'></script>
+<link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="http://www.bootstrap-switch.org/dist/css/bootstrap3/bootstrap-switch.css">
+<script type='text/javascript' src="http://www.bootstrap-switch.org/dist/js/bootstrap-switch.js"></script>
+<script type='text/javascript'>
+//<![CDATA[
+  $(window).load(function(){
+      $("input.switch").bootstrapSwitch();
+  });//]]>
+</script>
+{% endblock %}
+
+{% block header%}
+<div id="header" >
+  <div id="header-content" class="horizontally-centered content-page">
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/logout'">
+      <strong>Log out</strong>
+    </button>
+
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/manage'">
+      <strong>Správa testov</strong>
+    </button>
+
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/find_results'">
+      <strong>Prehľad výsledkov</strong>
+    </button>
+
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/find_test'">
+      <strong>Zobraziť test</strong>
+    </button>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block content%}
+<div id="page">
+  <div id="page-content" class="horizontally-centered content-page">
+    <form method="post" role="form" accept-charset="UTF-8" action="/set/">
+      {% csrf_token %}
+      {% for test in testy %}
+
+        {% if test.active == True %}
+        <div class="form-group input-group" style="width:100%">
+          <span class="input-group-addon" style="width:18%; background:#FFFFFF">
+            <strong>{{test.predmet}}</strong>
+          </span>
+          <span class="input-group-addon" style="width:75%; background:#FFFFFF">
+            <strong>{{test.test_nazov}}</strong>
+          </span>
+          <input type="checkbox" class="switch" name="{{test.id}}" value="1" checked/>
+        </div>
+
+        {% else %}
+        <div class="form-group input-group" style="width:100%">
+          <span class="input-group-addon" style="width:18%; background:#FFFFFF">
+            <strong>{{test.predmet}}</strong>
+          </span>
+          <span class="input-group-addon" style="width:75%; background:#FFFFFF">
+            <strong>{{test.test_nazov}}</strong>
+          </span>
+          <input type="checkbox" class="switch" name="{{test.id}}" unchecked/>
+        </div>
+        {% endif %}
+
+      {% endfor %}
+      <hr>
+      <div style="float:right; height:100px">
+        <button type="submit" class="save btn btn-danger">Uložiť</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

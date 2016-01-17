@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block custom_css_links %}
+<link rel="stylesheet" type="text/css" href="{% static "css/home.css" %}">
+<script src="{% static "js/home.js" %}"></script>
+{% endblock %}
+
+{% block header%}
+<div id="header" >
+  <div id="header-content" class="horizontally-centered content-page">
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/logout'">
+      <strong>Log out</strong>
+    </button>
+
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/manage'">
+      <strong>Správa testov</strong>
+    </button>
+
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/find_results'">
+      <strong>Prehľad výsledkov</strong>
+    </button>
+
+    <button type="button" class="btn btn-primary header-button" onclick="window.location.href='/find_test'">
+      <strong>Zobraziť test</strong>
+    </button>
+  </div>
+</div>
+{% endblock %}
+
+{% block content%}
+<div id="page">
+  <div id="page-content" class="horizontally-centered content-page">
+    <h3><strong>{{test.nazov}}</strong></h3>
+    <h3><strong>{{test.vysledok}}</strong></h3>
+    <hr>
+    {% for otazka in test.otazky %}
+      <h3>{{otazka.otazka}}  {{otazka.body}}</h3>
+      {% if "obrazok" in otazka %}
+        <img src="{% static otazka.obrazok %}" style="max-height:500px;">
+      {% endif %}
+      {% for odpoved in otazka.odpovede %}
+        <p style="background:{{odpoved.2}}">{{odpoved.0}}</p>
+      {% endfor %}
+      <hr>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
