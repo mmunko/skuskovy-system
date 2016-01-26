@@ -12,7 +12,7 @@ class Result(models.Model):
     test = models.ForeignKey(Test)
     otazky = models.CharField(max_length=500)
     odpovede = JSONField()
-    body = models.SmallIntegerField()
+    body = models.FloatField()
     znamka = models.CharField(max_length=20,default='Fx')
     casova_peciatka = models.DateTimeField(default=timezone.now)
 
