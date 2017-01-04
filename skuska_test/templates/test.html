@@ -42,7 +42,8 @@
             {% endif %}
                 {% for odpoved in o.odpovede %}
                   <div class="checkbox">
-                    <label><input type="checkbox" name="{{o.id}}" value="{{odpoved}}">{{odpoved.0}}</label>
+                      <label><input type="checkbox" name="{{o.id}}" value="{{odpoved}}">{{odpoved.0}}</label>
+                      <img src="{% static odpoved.2 %}" style="max-height:500px;">
                   </div>
                 {% endfor %}
           </div>

@@ -96,6 +96,11 @@ def view_test(request):
             if otazka["id"] in testove_otazky:
                 if "obrazok" in otazka:
                     otazka["obrazok"] = "{}{}".format("testy/obrazky/",otazka["obrazok"])
+                for odpoved in otazka["odpovede"]:
+                    if len(odpoved) == 3:
+                        odpoved[2] = "{}{}".format("testy/obrazky/",odpoved[2])
+                    else:
+                        odpoved.append("pictures/empty.png")
                 otazky.append(otazka)
 
     for otazka in otazky:

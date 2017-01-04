@@ -39,8 +39,12 @@
       {% if "obrazok" in otazka %}
         <img src="{% static otazka.obrazok %}" style="max-height:500px;">
       {% endif %}
+      <p></p>
       {% for odpoved in otazka.odpovede %}
-        <p style="background:{{odpoved.2}}">{{odpoved.0}}</p>
+        <div style="background:{{odpoved.3}}">
+          <label>{{odpoved.0}}</label>
+          <img src="{% static odpoved.2 %}" style="max-height:500px;">
+        </div>
       {% endfor %}
       <hr>
     {% endfor %}

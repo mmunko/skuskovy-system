@@ -42,9 +42,14 @@ def test(request):
     for sekcia in test["sekcie"]:
         for otazka in random.sample(sekcia["otazky"],sekcia["pocet_otazok"]):
             skuska["otazky_id"].append(otazka["id"])
-            random.shuffle(otazka["odpovede"])
             if "obrazok" in otazka:
                 otazka["obrazok"] = "{}{}".format("testy/obrazky/",otazka["obrazok"])
+            for odpoved in otazka["odpovede"]:
+                if len(odpoved) == 3:
+                    odpoved[2] = "{}{}".format("testy/obrazky/",odpoved[2])
+                else:
+                    odpoved.append("pictures/empty.png")
+            random.shuffle(otazka["odpovede"])
             skuska["otazky"].append(otazka)
     return render(request,'test.html',{'skuska':skuska})
 
