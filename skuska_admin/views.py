@@ -70,8 +70,10 @@ def set_tests(request):
     for item in Test.objects.all():
         if str(item.id) in running_tests:
             item.active = True
+            item.passwd = request.POST.get("{}-password".format(item.id))
         else:
             item.active = False
+            item.passwd = None
         item.save()
     return HttpResponseRedirect('/manage/')
 

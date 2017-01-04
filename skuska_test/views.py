@@ -28,6 +28,9 @@ def test(request):
     c.update(csrf(request))
     student = request.POST.get('student')
     test_id = int(request.POST.get('test'))
+    password = request.POST.get('password')
+    if password != Test.objects.filter(id=test_id).values('passwd')[0]["passwd"]:
+        return HttpResponseRedirect('/')
     test_file = Test.objects.filter(id=test_id).values('test_subor')
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     test_file = os.path.join(BASE_DIR,'static','testy',test_file[0]["test_subor"])

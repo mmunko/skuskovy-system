@@ -51,10 +51,15 @@
           <span class="input-group-addon" style="width:18%; background:#FFFFFF">
             <strong>{{test.predmet}}</strong>
           </span>
-          <span class="input-group-addon" style="width:75%; background:#FFFFFF">
+          <span class="input-group-addon" style="width:50%; background:#FFFFFF">
             <strong>{{test.test_nazov}}</strong>
           </span>
-          <input type="checkbox" class="switch" name="{{test.id}}" value="1" checked/>
+          <span class="input-group-addon" style="width:25%; background:#FFFFFF">
+            <input class="form-control" type="text" placeholder="{{test.passwd}}" name="{{test.id}}-password">
+          </span>
+          <span class="input-group-addon" style="width:7%; background:#FFFFFF">
+            <input type="checkbox" class="switch" name="{{test.id}}" value="1" checked/>
+          <span>
         </div>
 
         {% else %}
@@ -62,10 +67,15 @@
           <span class="input-group-addon" style="width:18%; background:#FFFFFF">
             <strong>{{test.predmet}}</strong>
           </span>
-          <span class="input-group-addon" style="width:75%; background:#FFFFFF">
+          <span class="input-group-addon" style="width:50%; background:#FFFFFF">
             <strong>{{test.test_nazov}}</strong>
           </span>
-          <input type="checkbox" class="switch" name="{{test.id}}" unchecked/>
+          <span class="input-group-addon" style="width:25%; background:#FFFFFF">
+            <input class="form-control" type="text" placeholder="{{test.passwd}}" name="{{test.id}}-password">
+          </span>
+          <span class="input-group-addon" style="width:7%; background:#FFFFFF">
+            <input type="checkbox" class="switch" name="{{test.id}}" unchecked/>
+          </span>
         </div>
         {% endif %}
 
