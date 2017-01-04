@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.template.context_processors import csrf
+from django.views.decorators.cache import never_cache
 from .models import Result
 from skuska_admin.models import Test
 
@@ -9,7 +10,6 @@ import json
 import random
 import ast
 
-# Create your views here.
 def metadata(request):
     aktivne_testy = Test.objects.filter(active=True)
     if len(aktivne_testy) != 0:
@@ -23,6 +23,7 @@ def metadata(request):
     else:
         return render(request,'notests.html')
 
+@never_cache
 def test(request):
     c = {}
     c.update(csrf(request))
@@ -56,6 +57,7 @@ def test(request):
             skuska["otazky"].append(otazka)
     return render(request,'test.html',{'skuska':skuska})
 
+@never_cache
 def vysledok(request):
     result = Result()
     result.student = request.POST.get('student')

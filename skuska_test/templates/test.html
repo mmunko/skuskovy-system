@@ -4,6 +4,14 @@
 {% block custom_css_links %}
 <link rel="stylesheet" type="text/css" href="{% static "css/default.css" %}">
 <script src="{% static "js/default.js" %}"></script>
+<script>
+function clicked(e)
+{
+    if (!confirm('Naozaj chcete odovzdať test?')) {
+       e.preventDefault();
+    }
+}
+</script>
 {% endblock %}
 
 
@@ -52,7 +60,8 @@
 
       <hr>
       <div style="float:right;margin-top:25px; height:100px">
-        <button type="submit" class="save btn btn-danger" onclick="return confirm('Naozaj chcete odovzdať test?')">Odovzdať test</button>
+        <button type="submit" class="save btn btn-danger"
+                onclick="clicked(event)">Odovzdať test</button>
         <button type="reset" class="save btn btn-default">Reset</button>
       </div>
 
