@@ -10,7 +10,7 @@ from skuska_admin.models import Test
 class Result(models.Model):
     student = models.CharField(max_length=200)
     test = models.ForeignKey(Test)
-    otazky = models.CharField(max_length=500)
+    otazky = models.TextField()
     odpovede = JSONField()
     body = models.FloatField()
     znamka = models.CharField(max_length=20,default='Fx')
