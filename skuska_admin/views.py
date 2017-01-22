@@ -70,7 +70,9 @@ def set_tests(request):
     for item in Test.objects.all():
         if str(item.id) in running_tests:
             item.active = True
-            item.passwd = request.POST.get("{}-password".format(item.id))
+            new_pass = request.POST.get("{}-password".format(item.id))
+            if new_pass != '':
+                item.passwd = new_pass
         else:
             item.active = False
             item.passwd = None
